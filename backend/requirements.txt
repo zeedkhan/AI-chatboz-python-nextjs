@@ -10,3 +10,5 @@ typing==3.7.4.1
 uvicorn==0.11.1
 uvloop==0.14.0
 websockets==8.1
+psycopg2==2.9.7
+mysql-connector-python

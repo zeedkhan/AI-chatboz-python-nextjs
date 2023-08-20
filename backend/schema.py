@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class DeviceInfo(BaseModel):
     token: str
     username: Optional[str]
