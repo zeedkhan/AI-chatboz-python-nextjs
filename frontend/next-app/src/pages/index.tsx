@@ -1,22 +1,65 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import react, { useEffect, useState } from "react"
+import API from '../lib/api'
+import Link from 'next/link';
+import Nav from '../component/nav'
 
 export default function Home() {
+  const [token, setToken] = useState<any>(null)
+
+  const source = 'source=http://localhost:3000/'
+  const backendURL = "http://localhost:8000"
+
+  useEffect(() => {
+    const user = async () => {
+      const res = await API.get_user();
+      if (!res.error) {
+        setToken(res)
+      }
+    }
+    user()
+  }, [])
+
   return (
-    <div className={styles.container}>
+    <div className="">
       <Head>
-        <title>Create Next App</title>
+        <title>Create Next app</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Nav />
+      <p>Token: <small>{JSON.stringify(token)}</small></p>
 
-      <main className={styles.main}>
+      <div className='
+      '>
+        <p>Welcome to your app!</p>
+        {!token ? (
+          <Link
+            href={
+              `${backendURL}/login?${source}`
+            }>
+            <span>Login</span>
+          </Link>
+        ) : (
+          <Link
+            href={
+              `${backendURL}/logout?${source}`
+            }>
+            <span>Logout</span>
+          </Link>
+        )}
+      </div>
+
+
+      <main className={styles.main} >
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js</a> on Docker!
+          Welcome to <a href="https://nextjs.org">Next.js</a> on Docker Compose!
         </h1>
 
         <p className={styles.description}>
           Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          <code className={styles.code}>pages/index.tsx</code>
         </p>
 
         <div className={styles.grid}>
@@ -31,7 +74,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="https://github.com/vercel/next.js/tree/master/examples"
             className={styles.card}
           >
             <h3>Examples &rarr;</h3>
@@ -59,7 +102,9 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+          <span className={styles.logo}>
+            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+          </span>
         </a>
       </footer>
     </div>

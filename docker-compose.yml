@@ -2,20 +2,29 @@ version: '3.7'
 
 services:
   frontend:
+    env_file:
+      - ./frontend/.env
     build:
-      context: frontend # Path to your frontend directory containing Dockerfile
-      dockerfile: Dockerfile
+      context: ./frontend/next-app # Path to your frontend directory containing Dockerfile
+      dockerfile: dev.Dockerfile
+    environment:
+      ENV_VARIABLE: ${ENV_VARIABLE}
+      NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    volumes:
+      - ./frontend/next-app/src:/app/src
+      - ./frontend/next-app/public:/app/public
     restart: always
+    command: npm run dev
     ports:
       - 3000:3000 # Map host port 3000 to container port 3000 (Next.js default)
-    volumes:
-      - .:/usr/src/frontend # Mount the frontend directory
     depends_on:
       - backend
 
   backend:
+    env_file:
+      - ./backend/.env
     build:
-      context: backend
+      context: ./backend
       dockerfile: Dockerfile
     restart: always
     command: uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
