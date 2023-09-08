@@ -39,6 +39,7 @@ def get_or_create_user(user_info: dict) -> int:
     print(user_info)
     # Check if user already exists
     user = session.query(User).filter_by(email=email).first()
+    print(user)
     if user:
         return user.id
     

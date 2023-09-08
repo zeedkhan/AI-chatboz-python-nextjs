@@ -11,10 +11,10 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     sub = Column(String(255), unique=True, nullable=False)
     email = Column(String(255), unique=True, nullable=False)  # Specify a length
-    name = Column(String)
-    picture = Column(String)
-    given_name = Column(String)
-    family_name = Column(String)
+    name = Column(String(255))
+    picture = Column(String(255))
+    given_name = Column(String(255))
+    family_name = Column(String(255))
     email_verified = Column(Boolean)
     created_at = Column(DateTime, default=datetime.utcnow)
 
