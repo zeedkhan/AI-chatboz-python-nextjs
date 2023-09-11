@@ -25,7 +25,7 @@ export default async function Home() {
     .catch((e) => console.log(e));
 
   return (
-    <>
+    <div className="w-full h-full flex flex-col items-center justify-center py-32">
       <div className="z-10 w-full max-w-xl px-5 xl:px-0">
         <a
           href="https://twitter.com/steventey/status/1613928948915920896"
@@ -110,7 +110,7 @@ export default async function Home() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
